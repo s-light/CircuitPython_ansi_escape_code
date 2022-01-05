@@ -294,7 +294,7 @@ class ANSIControl(ANSIControllsBase):
 
     # device_status_report_regex = re.compile(r"XXX\[(?P<row>\d*);(?P<column>\d*)R")
     # device_status_report_regex = re.compile(r"\033\[" + r"(\d*);(\d*)R")
-    device_status_report_regex = re.compile(r"(\d*);(\d*)R")
+    device_status_report_regex = re.compile(r".\[(\d*);(\d*)R")
 
     @classmethod
     def device_status_report_parse(cls, input_string):
@@ -308,7 +308,12 @@ class ANSIControl(ANSIControllsBase):
         :param string input_string: raw report
         :return (int row, int column): cursor position.
         """
-        return cls.device_status_report_regex.match(input_string)
+        result = (None, None)
+        match = cls.device_status_report_regex.match(input_string)
+        if match:
+            row, col = match.groups()
+            result = (row, col)
+        return result
 
     class cursor:
         """Cursor Movement."""
