@@ -89,9 +89,20 @@ Or the following command to update an existing version:
 Usage Example
 =============
 
-.. literalinclude:: ../examples/ansi_escape_code_simpletest.py
-    :caption: examples/ansi_escape_code_simpletest.py
-    :linenos:
+See scripts in the examples directory of this repository.
+
+.. code-block:: python
+
+    import ansi_escape_code as terminal
+    print(
+        terminal.ANSIColors.fg.lightblue
+        + "Hello "
+        + terminal.ANSIColors.fg.green
+        + "World "
+        + terminal.ANSIColors.fg.orange
+        + ":-)"
+        + terminal.ANSIColors.reset
+    )
 
 
 Contributing

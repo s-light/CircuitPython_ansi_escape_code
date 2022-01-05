@@ -55,8 +55,7 @@ setup(
     ],
     # What does your project relate to?
     keywords="adafruit blinka circuitpython micropython ansi_escape_code ansi escape code "
-             "sequence terminal io cursor position color font",
-
+    "sequence terminal io cursor position color font",
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
     # TODO: IF LIBRARY FILES ARE A PACKAGE FOLDER,

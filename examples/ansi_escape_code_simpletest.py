@@ -16,7 +16,6 @@ import ansi_escape_code as terminal
 
 def test_colors():
     """Test colors."""
-
     test_string = (
         terminal.ANSIColors.fg.lightblue
         + "Hello "
