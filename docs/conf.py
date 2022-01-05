@@ -36,6 +36,9 @@ intersphinx_mapping = {
 # Show the docstring from both the class and its __init__() method.
 autoclass_content = "both"
 
+# https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autodoc_member_order
+autodoc_member_order = "bysource"
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 

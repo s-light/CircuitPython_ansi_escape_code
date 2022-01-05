@@ -33,6 +33,10 @@ Implementation Notes
 
 # pylint: disable=invalid-name, too-few-public-methods
 
+# how to document on class attributes:
+# https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#directive-autoattribute
+
+import re
 import time
 
 ##########################################
@@ -103,7 +107,7 @@ def get_flat_list(obj_dict):
 class ANSIControllsBase:
     """Base Class for ANSI color and control sequences."""
 
-    esc = "\033["
+    esc = "\033["  #:
 
     # @staticmethod
     # def create_seq(control, esc=esc):
@@ -120,74 +124,32 @@ class ANSIControllsBase:
 
 class ANSIColors(ANSIControllsBase):
     """
-    ANSI Color and Font-Effects Control Characters.
+    ANSI Color and Font-Effect control sequences.
 
-    reset all colors with ANSIColors.reset;
-    two sub classes
-    * ``fg`` for foreground
-    * ``bg`` for background
+    usage:
 
-    use as ANSIColors.subclass.colorname:
     .. code-block:: python
-    ANSIColors.fg.red
-    ANSIColors.bg.green
 
-    the generic formatings
-        * bold
-        * disable
-        * underline
-        * reverse
-        * strike through
-        * invisible
+        # colors
+        ANSIColors.fg.red
+        ANSIColors.bg.green
 
-    work with the main class:
-    .. code-block:: python
-    ANSIColors.bold
+        # font effect
+        ANSIColors.bold
+
+        # reste
+        ANSIColors.reset
+
     """
 
     # reset = ANSIControllsBase.esc + "0m"
-    """
-    reset
-
-    :return string: ready to use sequences.
-    """
-    reset = create_color("0")
-    """
-    bold
-
-    :return string: ready to use sequences.
-    """
-    bold = create_color("01")
-    """
-    disable
-
-    :return string: ready to use sequences.
-    """
-    disable = create_color("02")
-    """
-    underline
-
-    :return string: ready to use sequences.
-    """
-    underline = create_color("04")
-    """
-    reverse
-
-    :return string: ready to use sequences.
-    """
-    reverse = create_color("07")
-    """
-    strikethrough
-
-    :return string: ready to use sequences.
-    """
-    strikethrough = create_color("09")
-    """
-    invisible
-
-    :return string: ready to use sequences.
-    """
-    invisible = create_color("08")
+    reset = create_color("0")  #:
+    bold = create_color("01")  #:
+    disable = create_color("02")  #:
+    underline = create_color("04")  #:
+    reverse = create_color("07")  #:
+    strikethrough = create_color("09")  #:
+    invisible = create_color("08")  #:
 
     # class fg:
     #     """Forderground Colors."""
@@ -223,38 +185,33 @@ class ANSIColors(ANSIControllsBase):
     class fg:
         """Forderground Colors."""
 
-        """
-        Forderground black
-
-        :return string: ready to use sequences.
-        """
-        black = ANSIControllsBase.esc + "30m"
-        red = ANSIControllsBase.esc + "31m"
-        green = ANSIControllsBase.esc + "32m"
-        orange = ANSIControllsBase.esc + "33m"
-        blue = ANSIControllsBase.esc + "34m"
-        purple = ANSIControllsBase.esc + "35m"
-        cyan = ANSIControllsBase.esc + "36m"
-        lightgrey = ANSIControllsBase.esc + "37m"
-        darkgrey = ANSIControllsBase.esc + "90m"
-        lightred = ANSIControllsBase.esc + "91m"
-        lightgreen = ANSIControllsBase.esc + "92m"
-        yellow = ANSIControllsBase.esc + "93m"
-        lightblue = ANSIControllsBase.esc + "94m"
-        pink = ANSIControllsBase.esc + "95m"
-        lightcyan = ANSIControllsBase.esc + "96m"
+        black = ANSIControllsBase.esc + "30m"  #:
+        red = ANSIControllsBase.esc + "31m"  #:
+        green = ANSIControllsBase.esc + "32m"  #:
+        orange = ANSIControllsBase.esc + "33m"  #:
+        blue = ANSIControllsBase.esc + "34m"  #:
+        purple = ANSIControllsBase.esc + "35m"  #:
+        cyan = ANSIControllsBase.esc + "36m"  #:
+        lightgrey = ANSIControllsBase.esc + "37m"  #:
+        darkgrey = ANSIControllsBase.esc + "90m"  #:
+        lightred = ANSIControllsBase.esc + "91m"  #:
+        lightgreen = ANSIControllsBase.esc + "92m"  #:
+        yellow = ANSIControllsBase.esc + "93m"  #:
+        lightblue = ANSIControllsBase.esc + "94m"  #:
+        pink = ANSIControllsBase.esc + "95m"  #:
+        lightcyan = ANSIControllsBase.esc + "96m"  #:
 
     class bg:
         """Background Colors."""
 
-        black = ANSIControllsBase.esc + "40m"
-        red = ANSIControllsBase.esc + "41m"
-        green = ANSIControllsBase.esc + "42m"
-        orange = ANSIControllsBase.esc + "43m"
-        blue = ANSIControllsBase.esc + "44m"
-        purple = ANSIControllsBase.esc + "45m"
-        cyan = ANSIControllsBase.esc + "46m"
-        lightgrey = ANSIControllsBase.esc + "47m"
+        black = ANSIControllsBase.esc + "40m"  #:
+        red = ANSIControllsBase.esc + "41m"  #:
+        green = ANSIControllsBase.esc + "42m"  #:
+        orange = ANSIControllsBase.esc + "43m"  #:
+        blue = ANSIControllsBase.esc + "44m"  #:
+        purple = ANSIControllsBase.esc + "45m"  #:
+        cyan = ANSIControllsBase.esc + "46m"  #:
+        lightgrey = ANSIControllsBase.esc + "47m"  #:
 
 
 class ANSIControl(ANSIControllsBase):
@@ -265,38 +222,178 @@ class ANSIControl(ANSIControllsBase):
     tested with `GTKTerm:
     <https://circuitpython.readthedocs.io/en/latest/shared-bindings/usb_cdc/index.html>`_
 
-    usage example:
+    usage:
+
     .. code-block:: python
-    ANSIControl.erease_line()
-    ANSIControl.cursor.up(5)
+
+        ANSIControl.erease_line()
+        ANSIControl.cursor.up(5)
     """
 
-    ED = erase_display = create_seq("J")
-    EL = erase_line = create_seq("K")
-    SU = scroll_up = create_seq("S")
-    SD = scroll_down = create_seq("T")
-    DSR = device_status_report = create_seq("n")("6")
+    # ED =
+    erase_display = create_seq("J")
+    """
+    erase display (ED)
+
+    clear part of screen.
+
+    :param string value:
+
+        * ``0`` (=default): clear from cursor to end of screen.
+        * ``1`` : clear from cursor to beginning of screen.
+        * ``2`` : clear entire screen. move cursor to 1;1.
+        * ``3`` : as 2 and delete all lines in scrollback buffer.
+    """
+
+    # EL =
+    erase_line = create_seq("K")
+    """
+    erase line (EL)
+
+    erease part of line.
+
+    :param string value:
+
+        * ``0`` (=default): clear from cursor to end of line.
+        * ``1`` : clear from cursor to beginning of line.
+        * ``2`` : clear entire line. cursor position does not change.
+    """
+
+    # SU =
+    scroll_up = create_seq("S")
+    """
+    scroll up (SU)
+
+    scroll hole page up by n lines. (new lines added at bottom)
+
+    :param string value: lines to scroll up
+    """
+
+    # SD =
+    scroll_down = create_seq("T")
+    """
+    scroll down (SD)
+
+    scroll hole page down by n lines. (new lines added at top)
+
+    :param string value: lines to scroll down
+    """
+
+    # DSR =
+    device_status_report = create_seq("n")("6")
+    """
+    device status report (DSR)
+
+    request Cursor Position Report (CPR).
+
+    terminal answers / transmitts report:
+    ``"ESC[n;mR"``
+    ``n`` = row
+    ``m`` = column
+    """
+
+    # device_status_report_regex = re.compile(r"XXX\[(?P<row>\d*);(?P<column>\d*)R")
+    # device_status_report_regex = re.compile(r"\033\[" + r"(\d*);(\d*)R")
+    device_status_report_regex = re.compile(r"(\d*);(\d*)R")
+
+    @classmethod
+    def device_status_report_parse(cls, input_string):
+        """
+        Parse Device Status Report. (Cursor Position Report / CPR)
+
+        ``"ESC[n;mR"``
+        ``n`` = row
+        ``m`` = column
+
+        :param string input_string: raw report
+        :return (int row, int column): cursor position.
+        """
+        return cls.device_status_report_regex.match(input_string)
 
     class cursor:
         """Cursor Movement."""
 
+        # CUU =
+        up = create_seq("A")
         """
-        CUU - CUrsor Up
+        cursor up (CUU)
 
-        :param string value: Lines to move up.
-        :return string: ready to use sequences.
+        move cursor n cells up.
+
+        :param string value: cells to move (default: 1)
         """
-        CUU = up = create_seq("A")
-        CUD = down = create_seq("B")
-        CUF = forward = create_seq("C")
-        CUB = back = create_seq("D")
-        CNL = next_line = create_seq("E")
-        CPL = previous_line = create_seq("F")
-        CHA = horizontal_absolute = create_seq("G")
-        CUP = position = create_seq("H")
+
+        # CUD =
+        down = create_seq("B")
+        """
+        cursor down (CUD)
+
+        move cursor n cells down.
+
+        :param string value: cells to move (default: 1)
+        """
+
+        # CUF =
+        forward = create_seq("C")
+        """
+        cursor forward (CUF)
+
+        move cursor n cells forward.
+
+        :param string value: cells to move (default: 1)
+        """
+
+        back = create_seq("D")
+        """
+        cursor back (CUB)
+
+        move cursor n cells back.
+
+        :param string value: cells to move (default: 1)
+        """
+
+        next_line = create_seq("E")
+        """
+        cursor next line (CNL)
+
+        move cursor n lines up and to beginning of the line.
+
+        :param string value: lines to move (default: 1)
+        """
+
+        previous_line = create_seq("F")
+        """
+        cursor previous line (CPL)
+
+        move cursor n lines down and to beginning of the line.
+
+        :param string value: lines to move (default: 1)
+        """
+
+        horizontal_absolute = create_seq("G")
+        """
+        cursor horizontal absolute (CHA)
+
+        moves cursor to column n.
+
+        :param string value: column to move to. (default: 1)
+        """
+
+        position = create_seq("H")
+        """
+        cursor position (CUP)
+
+        set cursor position absolute.
+        Format: ``"n;m"``
+        moves cursor to row n, column m.
+        omitted n or m default to 1.
+
+        :param string value: position to move to. (default: "1;1" = top left)
+        """
 
 
 ##########################################
+# tests
 
 
 def filter_ansi_controlls(data):
