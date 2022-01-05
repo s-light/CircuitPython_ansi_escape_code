@@ -24,11 +24,11 @@ Implementation Notes
 
 **Software and Dependencies:**
 
-* Adafruit CircuitPython firmware `>= 7.0.0 for the supported boards.
-    <https://github.com/adafruit/circuitpython/releases>`_
+* Adafruit CircuitPython firmware
+    `>= 7.0.0 for the supported boards. <https://github.com/adafruit/circuitpython/releases>`_
 * Python3
 * terminal with support for escape codes / sequences
-    (tested with `GTKTerm<https://github.com/Jeija/gtkterm>`_)
+    (tested with `GTKTerm <https://github.com/Jeija/gtkterm>`_)
 """
 
 # pylint: disable=invalid-name, too-few-public-methods
@@ -124,13 +124,13 @@ class ANSIColors(ANSIControllsBase):
 
     reset all colors with ANSIColors.reset;
     two sub classes
-        * ``fg`` for foreground
-        * ``bg`` for background;
+    * ``fg`` for foreground
+    * ``bg`` for background
+
     use as ANSIColors.subclass.colorname:
-    ```
+    .. code-block:: python
     ANSIColors.fg.red
     ANSIColors.bg.green
-    ```
 
     the generic formatings
         * bold
@@ -139,8 +139,10 @@ class ANSIColors(ANSIControllsBase):
         * reverse
         * strike through
         * invisible
+
     work with the main class:
-    ``ANSIColors.bold``
+    .. code-block:: python
+    ANSIColors.bold
     """
 
     # reset = ANSIControllsBase.esc + "0m"
@@ -259,14 +261,14 @@ class ANSIControl(ANSIControllsBase):
     """
     ANSI Cursor movement.
 
-    please make sure your terminal supports these...
+    please make sure your terminal supports these control sequences.
     tested with `GTKTerm:
     <https://circuitpython.readthedocs.io/en/latest/shared-bindings/usb_cdc/index.html>`_
 
     usage example:
     .. code-block:: python
-        ANSIControl.erease_line()
-        ANSIControl.cursor.up(5)
+    ANSIControl.erease_line()
+    ANSIControl.cursor.up(5)
     """
 
     ED = erase_display = create_seq("J")
