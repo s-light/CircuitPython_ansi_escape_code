@@ -88,7 +88,7 @@ def check_input():
 def main():
     """Main."""
     # wait some time untill the computer / terminal is ready
-    for i in range(10):
+    for _i in range(10):
         # print(".", end="")
         print(".")
         time.sleep(0.5 / 10)
