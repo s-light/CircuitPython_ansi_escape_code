@@ -38,7 +38,7 @@ setup(
     url="https://github.com/s-light/CircuitPython_ansi_escape_code.git",
     # Author details
     author="Stefan Krüger",
-    author_email="",  # TODO: Add your email here
+    author_email="git@s-light.eu",
     install_requires=[
         "Adafruit-Blinka",
     ],
@@ -58,7 +58,7 @@ setup(
     "sequence terminal io cursor position color font",
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
-    # TODO: IF LIBRARY FILES ARE A PACKAGE FOLDER,
+    # IF LIBRARY FILES ARE A PACKAGE FOLDER,
     #       CHANGE `py_modules=['...']` TO `packages=['...']`
     py_modules=["ansi_escape_code"],
 )
