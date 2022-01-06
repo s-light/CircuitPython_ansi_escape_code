@@ -295,6 +295,7 @@ class ANSIControl(ANSIControllsBase):
     # device_status_report_regex = re.compile(r"XXX\[(?P<row>\d*);(?P<column>\d*)R")
     # device_status_report_regex = re.compile(r"\033\[" + r"(\d*);(\d*)R")
     device_status_report_regex = re.compile(r".\[(\d*);(\d*)R")
+    """Regex to match against the report returned by terminal."""
 
     @classmethod
     def device_status_report_parse(cls, input_string):
