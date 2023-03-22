@@ -31,6 +31,9 @@ Implementation Notes
     (tested with `GTKTerm <https://github.com/Jeija/gtkterm>`_)
 """
 
+__version__ = "0.0.0+auto.0"
+__repo__ = "https://github.com/s-light/CircuitPython_ansi_escape_code.git"
+
 # pylint: disable=invalid-name, too-few-public-methods
 
 # how to document on class attributes:
