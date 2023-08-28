@@ -406,7 +406,7 @@ class ANSIControl(ANSIControllsBase):
 
 
 def read_serial_until(*, serial, read_end="R", timeout=0.1):
-    """Read serial until finding `read_end`."""
+    """Read serial until finding 'read_end'."""
     end_time = time.monotonic() + timeout
     buffer = ""
     while end_time >= time.monotonic() and not buffer.endswith(read_end):
