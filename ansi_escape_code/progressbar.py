@@ -73,7 +73,7 @@ class ProgressBar:
         self.line1 = "progress: {:> 3}%".format(0)
         self.last_abs_pos = 0
         if self.serial.connected:
-            self.terminal_size = terminal.get_terminal_size(serial=usb_cdc.console)
+            self.terminal_size = terminal.get_terminal_size(serial=self.serial)
             print(self.line1)
             print("_")
 
@@ -122,14 +122,13 @@ def map_to_01(x, in_min, in_max):
     return (x - in_min) / (in_max - in_min)
 
 
-def simulate_progress():
+def simulate_progress(*, serial):
     """draw progress bar to bottom of screen."""
     duration = 20
-    my_progress = ProgressBar()
+    my_progress = ProgressBar(serial=serial)
 
     steps = my_progress.terminal_size[1]
     sleep_duration = duration / steps
-    step_size = 1.0 / steps
 
     for progress_int in range(0, steps):
         progress = map_to_01(progress_int, 0, steps)
@@ -141,6 +140,7 @@ def simulate_progress():
 
 
 def run_tests():
+    """Run some tests."""
     for _i in range(10):
         # print(".", end="")
         print(".", end="")
@@ -154,7 +154,7 @@ def run_tests():
         try:
             serial = usb_cdc.console
             if serial.connected:
-                simulate_progress()
+                simulate_progress(serial=serial)
                 time.sleep(2)
                 # test_control()
                 # time.sleep(2)
@@ -166,6 +166,4 @@ def run_tests():
 
 
 if __name__ == "__main__":
-    import usb_cdc
-
     run_tests()

@@ -31,7 +31,6 @@ def simulate_progress():
 
     steps = my_progress.terminal_size[1]
     sleep_duration = duration / steps
-    step_size = 1.0 / steps
 
     for progress_int in range(0, steps):
         progress = map_to_01(progress_int, 0, steps)

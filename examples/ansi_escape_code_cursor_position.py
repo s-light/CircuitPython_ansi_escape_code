@@ -11,7 +11,6 @@ import time
 import sys
 import board
 import usb_cdc
-import digitalio
 import ansi_escape_code as terminal
 
 ##########################################
