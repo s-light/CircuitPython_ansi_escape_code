@@ -31,6 +31,9 @@ Implementation Notes
     (tested with `GTKTerm <https://github.com/Jeija/gtkterm>`_)
 """
 
+__version__ = "0.0.0+auto.0"
+__repo__ = "https://github.com/s-light/CircuitPython_ansi_escape_code.git"
+
 # pylint: disable=invalid-name, too-few-public-methods
 
 # how to document on class attributes:
@@ -403,6 +406,7 @@ class ANSIControl(ANSIControllsBase):
 
 
 def read_serial_until(*, serial, read_end="R", timeout=0.1):
+    """Read serial until finding `read_end`."""
     end_time = time.monotonic() + timeout
     buffer = ""
     while end_time >= time.monotonic() and not buffer.endswith(read_end):
@@ -531,6 +535,7 @@ def test_control():
 
 
 def test_get_terminal_size():
+    """Test get_terminal_size."""
     serial = usb_cdc.console
     print("\n\n\n")
     # print("get_cursor_pos:")
@@ -543,6 +548,7 @@ def test_get_terminal_size():
 
 
 def run_tests():
+    """Run a bunch of tests."""
     for _i in range(10):
         # print(".", end="")
         print(".", end="")
