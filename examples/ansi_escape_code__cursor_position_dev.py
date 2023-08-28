@@ -16,8 +16,6 @@ import ansi_escape_code as terminal
 
 ##########################################
 # globals
-led = digitalio.DigitalInOut(board.LED)
-led.direction = digitalio.Direction.OUTPUT
 
 
 ##########################################
@@ -57,9 +55,13 @@ def check_input():
         "terminal.ANSIControl.device_status_report",
         repr(terminal.ANSIControl.device_status_report),
     )
+
+    print("set cursor to max & wait & read answer")
+
+    print(terminal.ANSIControl.cursor.position("999;999"), end="")
+    time.sleep(2)
     serial.write(bytearray(terminal.ANSIControl.device_status_report))
 
-    print("wait & read answer")
     # serial.timeout = 0.1
     # raw = serial.read(7)
     # buffer = raw.decode("utf-8")

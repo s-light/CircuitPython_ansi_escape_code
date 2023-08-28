@@ -399,6 +399,69 @@ class ANSIControl(ANSIControllsBase):
 
 
 ##########################################
+# tools
+
+
+def read_serial_until(*, serial, read_end="R", timeout=0.1):
+    end_time = time.monotonic() + timeout
+    buffer = ""
+    while end_time >= time.monotonic() and not buffer.endswith(read_end):
+        raw = serial.read(serial.in_waiting)
+        buffer += raw.decode("utf-8")
+    return buffer
+
+
+def get_cursor_pos(*, serial):
+    """
+    Get Cursor Position by reading from the terminal
+
+    this function has side effects on the given serial connection.
+    it resets the buffers and sets the timeout to 0.
+
+    :return (int row, int column): absolut position in row and column.
+    """
+    result = (None, None)
+    # enable nonblocking read
+    serial.timeout = 0
+    serial.flush()
+    serial.write(bytearray(ANSIControl.device_status_report))
+    serial.flush()
+    # time.sleep(0.01)
+    buffer = read_serial_until(serial=serial, read_end="R", timeout=0.1)
+    row, col = ANSIControl.device_status_report_parse(buffer)
+    result = int(row), int(col)
+    return result
+
+
+def get_terminal_size(*, serial):
+    """
+    Get Terminal Size by setting cursor to max and then reading position.
+
+    this function has side effects on the given serial connection.
+    it resets the buffers and sets the timeout to 0.
+
+    :return (int rows, int columns): rows and columns count.
+    """
+    terminal_size = (None, None)
+
+    # enable nonblocking read
+    serial.timeout = 0
+    serial.flush()
+    serial.reset_input_buffer()
+    # serial.reset_output_buffer()
+    serial.flush()
+
+    # remember original cursor position
+    orig_pos = get_cursor_pos(serial=serial)
+    serial.write(bytearray(ANSIControl.cursor.position("999;999")))
+    serial.flush()
+    terminal_size = get_cursor_pos(serial=serial)
+    # set cursor back to orig_pos
+    serial.write(bytearray(ANSIControl.cursor.position("{};{}".format(*orig_pos))))
+    return terminal_size
+
+
+##########################################
 # tests
 
 
@@ -465,3 +528,45 @@ def test_control():
         + ":-)"
     )
     print(test_string)
+
+
+def test_get_terminal_size():
+    serial = usb_cdc.console
+    print("\n\n\n")
+    # print("get_cursor_pos:")
+    # row, col = get_cursor_pos(serial=serial)
+    print("get_terminal_size:")
+    row, col = get_terminal_size(serial=serial)
+    print("row: {}; col: {}".format(row, col))
+    print("wait 2s")
+    time.sleep(2)
+
+
+def run_tests():
+    for _i in range(10):
+        # print(".", end="")
+        print(".", end="")
+        time.sleep(0.5 / 10)
+    print("")
+    print(42 * "*")
+    print("ansi_escape_code.py")
+    running = True
+    while running:
+        try:
+            serial = usb_cdc.console
+            if serial.connected:
+                test_get_terminal_size()
+                time.sleep(2)
+                # test_control()
+                # time.sleep(2)
+        except KeyboardInterrupt as e:
+            print("KeyboardInterrupt - Stop Program.", e)
+            running = False
+        else:
+            pass
+
+
+if __name__ == "__main__":
+    import usb_cdc
+
+    run_tests()

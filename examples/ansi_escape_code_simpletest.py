@@ -38,6 +38,18 @@ def test_control():
         + ":-)"
     )
     print(test_string)
+    time.sleep(1)
+    print("this is a line.")
+    print("this is a second line.")
+    time.sleep(1)
+    print(terminal.ANSIControl.cursor.previous_line(3), end="")
+    time.sleep(1)
+    print(terminal.ANSIControl.cursor.horizontal_absolute(20), end="")
+    print("ping", end="")
+    time.sleep(1)
+    print(terminal.ANSIControl.erase_line(), end="")
+
+    print("we erased a line...")
 
 
 ##########################################
@@ -58,9 +70,15 @@ def main():
     print(42 * "*")
     print("run")
 
+    print("test_colors")
     test_colors()
+    print("test_colors")
     test_colors()
+    print("test_colors")
     test_colors()
+    print("test_control")
+    test_control()
+    print("all tests done.")
     time.sleep(1)
 
 
