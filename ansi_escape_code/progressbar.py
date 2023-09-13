@@ -54,6 +54,10 @@ class ProgressBar:
     <https://github.com/npat-efault/picocom>`_
 
 
+    `minicom:
+    <https://salsa.debian.org/minicom-team/minicom/>`_
+    does not work :-(
+
     usage:
 
     .. code-block:: python
