@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 # SPDX-FileCopyrightText: Copyright (c) 2022 Stefan Krüger for s-light
 #
@@ -7,10 +6,12 @@
 
 """Test Cursor Movement."""
 
-import time
 import sys
+import time
+
 import board
 import usb_cdc
+
 import ansi_escape_code as terminal
 
 ##########################################
@@ -76,7 +77,7 @@ def check_input():
     print("answer:", repr(buffer))
 
     row, col = terminal.ANSIControl.device_status_report_parse(buffer)
-    print("row: {}; col: {}".format(row, col))
+    print(f"row: {row}; col: {col}")
 
     print("wait 2s")
     time.sleep(2)
