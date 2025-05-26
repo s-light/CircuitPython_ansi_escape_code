@@ -114,4 +114,9 @@ Contributions are welcome! Please read our `Code of Conduct
 <https://github.com/s-light/CircuitPython_ansi_escape_code/blob/HEAD/CODE_OF_CONDUCT.md>`_
 before contributing to help this project stay welcoming.
 
-to locally check if your changes have a chance to pass the workflows run `pre-commit run --all-files` multiple times. ;-)
+to locally check if your changes have a chance to pass the workflows run
+
+.. code-block:: shell
+    pre-commit run --all-files
+
+multiple times. ;-)
