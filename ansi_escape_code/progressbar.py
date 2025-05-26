@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding=utf-8
 
 # SPDX-FileCopyrightText: Copyright (c) 2022 Stefan Krüger s-light.eu
 #
@@ -36,9 +35,10 @@ Implementation Notes
 # how to document on class attributes:
 # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#directive-autoattribute
 
-
 import time
+
 import usb_cdc
+
 import ansi_escape_code as terminal
 
 
@@ -74,7 +74,7 @@ class ProgressBar:
     def __init__(self, *, serial):
         self.serial = serial
         self.terminal_size = (0, 0)
-        self.line1 = "progress: {:> 3}%".format(0)
+        self.line1 = f"progress: {0:> 3}%"
         self.last_abs_pos = 0
         if self.serial.connected:
             self.terminal_size = terminal.get_terminal_size(serial=self.serial)
@@ -88,7 +88,7 @@ class ProgressBar:
                 terminal.ANSIControl.cursor.previous_line(2)
                 # + terminal.ANSIControl.erase_line()
                 + terminal.ANSIControl.cursor.horizontal_absolute(len(self.line1) - 1)
-                + "{:> 3}%".format(int(progress * 100))
+                + f"{int(progress * 100):> 3}%"
                 + terminal.ANSIControl.cursor.next_line(2),
                 end="",
             )

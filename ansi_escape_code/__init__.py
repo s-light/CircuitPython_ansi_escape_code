@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding=utf-8
 
 # SPDX-FileCopyrightText: Copyright (c) 2022 Stefan Krüger s-light.eu
 #
@@ -54,9 +53,7 @@ def create_seq(control, esc="\033["):
     :param string esc: escape character. Default: ``\033[``
     :return lambda: function generator with predefined control sequences.
     """
-    return lambda value="": "{esc}{value}{control}".format(
-        esc=esc, value=value, control=control
-    )
+    return lambda value="": f"{esc}{value}{control}"
 
 
 def create_color(color):
@@ -461,7 +458,7 @@ def get_terminal_size(*, serial):
     serial.flush()
     terminal_size = get_cursor_pos(serial=serial)
     # set cursor back to orig_pos
-    serial.write(bytearray(ANSIControl.cursor.position("{};{}".format(*orig_pos))))
+    serial.write(bytearray(ANSIControl.cursor.position(f"{orig_pos[0]};{orig_pos[1]}")))
     return terminal_size
 
 
@@ -536,13 +533,13 @@ def test_control():
 
 def test_get_terminal_size():
     """Test get_terminal_size."""
-    serial = usb_cdc.console
+    serial = usb_cdc.console  # pylint: disable=used-before-assignment
     print("\n\n\n")
     # print("get_cursor_pos:")
     # row, col = get_cursor_pos(serial=serial)
     print("get_terminal_size:")
     row, col = get_terminal_size(serial=serial)
-    print("row: {}; col: {}".format(row, col))
+    print(f"row: {row}; col: {col}")
     print("wait 2s")
     time.sleep(2)
 
@@ -559,7 +556,7 @@ def run_tests():
     running = True
     while running:
         try:
-            serial = usb_cdc.console
+            serial = usb_cdc.console  # pylint: disable=used-before-assignment
             if serial.connected:
                 test_get_terminal_size()
                 time.sleep(2)
