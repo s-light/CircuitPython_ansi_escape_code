@@ -107,7 +107,7 @@ def get_flat_list(obj_dict):
 class ANSIControllsBase:
     """Base Class for ANSI color and control sequences."""
 
-    esc = "\033["  #:
+    esc = "\033["
 
     # @staticmethod
     # def create_seq(control, esc=esc):
@@ -143,13 +143,13 @@ class ANSIColors(ANSIControllsBase):
     """
 
     # reset = ANSIControllsBase.esc + "0m"
-    reset = create_color("0")  #:
-    bold = create_color("01")  #:
-    disable = create_color("02")  #:
-    underline = create_color("04")  #:
-    reverse = create_color("07")  #:
-    strikethrough = create_color("09")  #:
-    invisible = create_color("08")  #:
+    reset = create_color("0")
+    bold = create_color("01")
+    disable = create_color("02")
+    underline = create_color("04")
+    reverse = create_color("07")
+    strikethrough = create_color("09")
+    invisible = create_color("08")
 
     # class fg:
     #     """Forderground Colors."""
@@ -182,36 +182,49 @@ class ANSIColors(ANSIControllsBase):
     #     cyan = create_color("46m")
     #     lightgrey = create_color("47m")
 
+    # https://en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
+
     class fg:
         """Forderground Colors."""
 
-        black = ANSIControllsBase.esc + "30m"  #:
-        red = ANSIControllsBase.esc + "31m"  #:
-        green = ANSIControllsBase.esc + "32m"  #:
-        orange = ANSIControllsBase.esc + "33m"  #:
-        blue = ANSIControllsBase.esc + "34m"  #:
-        purple = ANSIControllsBase.esc + "35m"  #:
-        cyan = ANSIControllsBase.esc + "36m"  #:
-        lightgrey = ANSIControllsBase.esc + "37m"  #:
-        darkgrey = ANSIControllsBase.esc + "90m"  #:
-        lightred = ANSIControllsBase.esc + "91m"  #:
-        lightgreen = ANSIControllsBase.esc + "92m"  #:
-        yellow = ANSIControllsBase.esc + "93m"  #:
-        lightblue = ANSIControllsBase.esc + "94m"  #:
-        pink = ANSIControllsBase.esc + "95m"  #:
-        lightcyan = ANSIControllsBase.esc + "96m"  #:
+        black = ANSIControllsBase.esc + "30m"
+        red = ANSIControllsBase.esc + "31m"
+        green = ANSIControllsBase.esc + "32m"
+        orange = ANSIControllsBase.esc + "33m"
+        blue = ANSIControllsBase.esc + "34m"
+        purple = ANSIControllsBase.esc + "35m"
+        cyan = ANSIControllsBase.esc + "36m"
+        lightgrey = ANSIControllsBase.esc + "37m"
+
+        darkgrey = ANSIControllsBase.esc + "90m"
+        lightred = ANSIControllsBase.esc + "91m"
+        lightgreen = ANSIControllsBase.esc + "92m"
+        yellow = ANSIControllsBase.esc + "93m"
+        lightblue = ANSIControllsBase.esc + "94m"
+        pink = ANSIControllsBase.esc + "95m"
+        lightcyan = ANSIControllsBase.esc + "96m"
+        white = ANSIControllsBase.esc + "97m"
 
     class bg:
         """Background Colors."""
 
-        black = ANSIControllsBase.esc + "40m"  #:
-        red = ANSIControllsBase.esc + "41m"  #:
-        green = ANSIControllsBase.esc + "42m"  #:
-        orange = ANSIControllsBase.esc + "43m"  #:
-        blue = ANSIControllsBase.esc + "44m"  #:
-        purple = ANSIControllsBase.esc + "45m"  #:
-        cyan = ANSIControllsBase.esc + "46m"  #:
-        lightgrey = ANSIControllsBase.esc + "47m"  #:
+        black = ANSIControllsBase.esc + "40m"
+        red = ANSIControllsBase.esc + "41m"
+        green = ANSIControllsBase.esc + "42m"
+        orange = ANSIControllsBase.esc + "43m"
+        blue = ANSIControllsBase.esc + "44m"
+        purple = ANSIControllsBase.esc + "45m"
+        cyan = ANSIControllsBase.esc + "46m"
+        lightgrey = ANSIControllsBase.esc + "47m"
+
+        darkgrey = ANSIControllsBase.esc + "100m"
+        lightred = ANSIControllsBase.esc + "101m"
+        lightgreen = ANSIControllsBase.esc + "102m"
+        yellow = ANSIControllsBase.esc + "103m"
+        lightblue = ANSIControllsBase.esc + "104m"
+        pink = ANSIControllsBase.esc + "105m"
+        lightcyan = ANSIControllsBase.esc + "106m"
+        white = ANSIControllsBase.esc + "107m"
 
 
 class ANSIControl(ANSIControllsBase):
